@@ -34,6 +34,7 @@ public class CarRentalSystem {
         if(car.isAvaliable()){
             car.rentCar();
             rentalsList.add(new Rental(car, customer, days));
+            System.out.println("\nCar rented Successfully... ");
         }else{
             System.out.println("Cars is not availabe for rent ... ");
         }
@@ -93,7 +94,7 @@ public class CarRentalSystem {
                     if(carId.equals(car.getId())){
                         carPresent = true;
                         break;
-                    }else carPresent = false;
+                    }
                 }
 
                 System.out.println(carPresent);
@@ -106,11 +107,11 @@ public class CarRentalSystem {
                     Customer newCustomer = new Customer(customerName, "CUS"+(customersList.size() + 1));
                     addCustomer(newCustomer);
                     System.out.println(newCustomer.getName());
+
                     Car selectedCar = null;
                     for(Car car: carsList){
                         if(car.getId().equals(carId) && car.isAvaliable()){
                             selectedCar = car;
-                            car.rentCar();
                             break;
                         }
                     }
@@ -129,8 +130,8 @@ public class CarRentalSystem {
                         String confirm = in.nextLine();
 
                         if(confirm.equalsIgnoreCase("Y")){
+                            // selectedCar.rentCar();
                             rentalCar(selectedCar, newCustomer, rentalDays);
-                            System.out.println("\nCar rented Successfully... ");
                         }else{
                             System.out.println("\nRental canceled... ");
                         }
@@ -151,14 +152,18 @@ public class CarRentalSystem {
                 String carId = in.nextLine();
 
                 Car carToReturn = null;
-                for(Car car : carsList){
-                    if(car.getId().equals(car) && !car.isAvaliable()){
-                        carToReturn = car;
+                for(Car carStatus : carsList){
+                    if(carStatus.getId() == carStatus && !carStatus.isAvaliable()){
+                        carToReturn = carStatus;
                         break;
                     }
                 }
+                
+                
 
                 if(carToReturn != null){
+                    System.out.println("----");
+                    returnCar(carToReturn);
                     Customer customer = null;
                     for(Rental rental : rentalsList){
                         if(rental.getCar() == carToReturn){
@@ -176,13 +181,9 @@ public class CarRentalSystem {
                 }
 
             }else if(choice == 3){
-                
                 break;
-            
             }else{
-
                 System.out.println("Invalid choice. Please enter a vaild option... ");
-            
             }
         }
 
