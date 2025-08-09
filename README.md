@@ -121,10 +121,3 @@ This project is licensed under the **MIT License**.
 
 **Minsu Agrahari**
 🔗 [GitHub Profile](https://github.com/Minsu-Agrahari)
-
-```
-
----
-
-Do you want me to also **add ASCII art** of a car 🚙 in the README for extra style? That would make it even cooler on GitHub.
-```
