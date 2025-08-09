@@ -41,25 +41,24 @@ public class CarRentalSystem {
 
     }
 
-    public void returnCar(Car car){
-        car.returnCar();
+    public void returnCar(Car car) {
+    Rental rentalToRemove = null;
 
-        Rental rentalToRemove = null;
-
-        for(Rental rent : rentalsList){
-            if(rent.getCar() == car){
-                rentalToRemove = rent;
-                break;
-            }
+    for (Rental rent : rentalsList) {
+        if (rent.getCar() == car) {  // Same object reference
+            rentalToRemove = rent;
+            break;
         }
-
-        if(rentalToRemove != null){
-            rentalsList.remove(rentalToRemove);
-        }else{
-            System.out.println("Car was not rented ... ");
-        }
-
     }
+
+    if (rentalToRemove != null) {
+        rentalsList.remove(rentalToRemove);
+        car.returnCar(); // mark it as available
+        System.out.println("Car returned successfully!");
+    } else {
+        System.out.println("Car was not rented ...");
+    }
+}
 
     public void menu() {
         Scanner in = new Scanner (System.in);
@@ -153,27 +152,31 @@ public class CarRentalSystem {
 
                 Car carToReturn = null;
                 for(Car carStatus : carsList){
-                    if(carStatus.getId() == carStatus && !carStatus.isAvaliable()){
+                    System.out.println("-----------"+carStatus.getId());
+                    if(carStatus.getId().equals(carId)){
                         carToReturn = carStatus;
+                        System.out.println("---");
                         break;
                     }
                 }
                 
-                
+                System.out.println("--- "+carToReturn.getId());
 
                 if(carToReturn != null){
-                    System.out.println("----");
-                    returnCar(carToReturn);
+                    // System.out.println("----");
+                    // returnCar(carToReturn);
                     Customer customer = null;
                     for(Rental rental : rentalsList){
                         if(rental.getCar() == carToReturn){
                             customer = rental.getCustomer();
+
+                            carToReturn.returnCar();
+                            rentalsList.remove(rental);
                             break;
                         }
                     }
 
                     if(customer != null){
-                        returnCar(carToReturn);
                         System.out.println("Car returned Successfully by " + customer.getName());
                     }else{
                         System.out.println("Invalid car Id or Car is not rented... ");
