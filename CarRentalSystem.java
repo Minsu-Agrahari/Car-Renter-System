@@ -92,6 +92,7 @@ public class CarRentalSystem {
                 for(Car car : carsList){
                     if(carId.equals(car.getId())){
                         carPresent = true;
+                        break;
                     }else carPresent = false;
                 }
 
